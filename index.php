@@ -1,5 +1,6 @@
 <?php
 
+//EXO4
 class Form{
 
     private $action;
@@ -11,34 +12,54 @@ class Form{
     private $name;
     private $for;
     private $id;
+    private $textForm;
 
-
-    public function entete($action, $method, $class, $legend){
+    public function __construct($action, $method, $class, $legend){
         $this->action = $action;
         $this->method = $method;
         $this->class = $class;
         $this->legend = $legend;
+        $this->textForm =
 
-        echo '<form action=" '.  $this->action . '" method=" ' .$this->method . ' " class=" ' . $this->class . ' " >
-                    <fieldset>
-                        <legend> ' . $this->legend . '</legend>';
+         '<form action=" '.  $this->action . '" method=" ' .$this->method . ' " class=" ' . $this->class . ' " >
+        <fieldset>
+        <legend> ' . $this->legend . '</legend>';
+    }
+
+    public function setText($type, $name, $for, $id){
+        $this->type = $type;
+        $this->name = $name;
+        $this->for = $for;
+        $this->id = $id;
+        $this->textForm .=
+
+        '<label for="' . $this->for . '">Entrez votre ' . $this->name . '</label>
+        <input type="' . $this->type . '" name="'.$this->name.'" id=" '. $this->id .' ">
+        <br><br>
+        ';
     }
 
     public function setSubmit($value){
         $this->value = $value;
+        $this->textForm .=
 
-        echo '<input type="submit" value=" ' . $this->value . '">
-                </form>';
+        '<input type="submit" value=" ' . $this->value . '">
+        </form>';
     }
 
-    public function setText($type, $name, $for, $id){
-
+    public function getForm()
+    {
+        echo $this->textForm;
     }
+
 }
 
 
 
 
-$form1 = new Form();
-$form1->entete("index.php", "post", "", "Mon Formulaire");
+$form1 = new Form("index.php", "post", "", "Mon Formulaire");
+$form1->setText("text", "prenom", "prenom", "prenom");
+$form1->setText("text", "nom", "nom", "nom");
+$form1->setText("email", "email", "email", "email");
 $form1->setSubmit("Envoyer");
+$form1->getForm();
