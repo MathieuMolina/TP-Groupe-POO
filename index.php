@@ -1,65 +1,99 @@
 <?php
 
 //EXO4
-class Form{
 
-    private $action;
-    private $method;
-    private $class;
-    private $legend;
-    private $value;
-    private $type;
-    private $name;
-    private $for;
-    private $id;
-    private $textForm;
+/**
+ * Classe pour generer un formulaire
+ */
+class Form
+{
 
-    public function __construct($action, $method, $class, $legend){
-        $this->action = $action;
-        $this->method = $method;
-        $this->class = $class;
-        $this->legend = $legend;
+    /**
+     * @var string
+     */
+    protected string $textForm;
+
+    /**
+     * @param string $action
+     * @param string $method
+     * @param string $class
+     * @param string $legend
+     */
+    public function __construct(string $action, string $method, string $class, string $legend)
+    {
         $this->textForm =
-
-         '<form action=" '.  $this->action . '" method=" ' .$this->method . ' " class=" ' . $this->class . ' " >
+            '<form action=" ' . $action . '" method=" ' . $method . ' " class=" ' . $class . ' " >
         <fieldset>
-        <legend> ' . $this->legend . '</legend>';
+        <legend> ' . $legend . '</legend>';
     }
 
-    public function setText($type, $name, $for, $id){
-        $this->type = $type;
-        $this->name = $name;
-        $this->for = $for;
-        $this->id = $id;
+    /**
+     * @param string $type
+     * @param string $name
+     * @param string $for
+     * @param string $id
+     * @return void
+     */
+    public function setText(string $type, string $name, string $for, string $id): void
+    {
         $this->textForm .=
 
-        '<label for="' . $this->for . '">Entrez votre ' . $this->name . '</label>
-        <input type="' . $this->type . '" name="'.$this->name.'" id=" '. $this->id .' ">
+            '<label for="' . $for . '">Entrez votre ' . $name . '</label>
+        <input type="' . $type . '" name="' . $name . '" id=" ' . $id . ' ">
         <br><br>
         ';
     }
 
-    public function setSubmit($value){
-        $this->value = $value;
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setSubmit(string $value) : void
+    {
         $this->textForm .=
 
-        '<input type="submit" value=" ' . $this->value . '">
+            '<input type="submit" value=" ' . $value . '">
         </form>';
     }
 
-    public function getForm()
+    /**
+     * @return string
+     */
+    public function getForm(): string
     {
-        echo $this->textForm;
+        return $this->textForm;
     }
 
 }
 
 
+//$form1 = new Form("index.php", "post", "", "Mon Formulaire");
+//$form1->setText("text", "prenom", "prenom", "prenom");
+//$form1->setText("text", "nom", "nom", "nom");
+//$form1->setText("email", "email", "email", "email");
+//$form1->setSubmit("Envoyer");
+//echo $form1->getForm();
 
 
-$form1 = new Form("index.php", "post", "", "Mon Formulaire");
-$form1->setText("text", "prenom", "prenom", "prenom");
-$form1->setText("text", "nom", "nom", "nom");
-$form1->setText("email", "email", "email", "email");
-$form1->setSubmit("Envoyer");
-$form1->getForm();
+
+
+//EXO 5: ----------------------------------------------------------
+
+class Form2 extends Form
+{
+    public function setRadio(string $nameRadio, string $idRadio)
+    {
+        $this->textForm .=
+
+            '<input type="radio" id="' . $idRadio . '" name="' . $nameRadio . '">
+             <label for="' . $idRadio . '">' . $nameRadio . '</label><br/>'
+    }
+
+    public function checkBox(string $nameCheckBox, string $idCheckBox){
+
+        $this->textForm .=
+
+            '<input type="checkbox" id="' .$idRadio. '" name="' . $nameCheckBox . '">
+            <label for="horns">Horns</label>'
+    }
+}
