@@ -22,7 +22,7 @@ class Form
     public function __construct(string $action, string $method, string $class, string $legend)
     {
         $this->textForm =
-            '<form action=" ' . $action . '" method=" ' . $method . ' " class=" ' . $class . ' " >
+            '<form action="' . $action . '" method="' . $method . '" class=" ' . $class . ' " >
         <fieldset>
         <legend> ' . $legend . '</legend>';
     }
@@ -81,28 +81,23 @@ class Form
 
 class Form2 extends Form
 {
-
-    public function setInput(string $name, string $id, string $type)
+    public function setInput(string $name, string $id, string $type, string $label = ''): void
     {
         $this->textForm .=
-
-
-            '<input type="'. $type . '" id="' . $id . '" name="' . $name . '">
-            <label for="' . $id . '">' . $id . '</label>';
+            '<input type="'. $type . '" id="' . $id . '" name="' . $name . '" value="'. $id . '">
+            <label for="' . $id . '">' . $label . '</label>';
     }
 }
 
-$form1 = new Form("index.php", "post", "", "Mon Formulaire");
-$form1->setText("text", "prenom", "prenom", "prenom");
-$form1->setText("text", "nom", "nom", "nom");
-$form1->setText("email", "email", "email", "email");
-echo $form1->getForm();
+
 
 $form2 = new Form2("index.php", "post", "", "Choix");
-
-$form2->setInput("sexe", "feminin", "radio");
-$form2->setInput("sexe", "masculin", "radio");
-$form2->setInput("matiere", "Phylosophie", "checkbox");
-$form2->setInput("matiere", "Mathématiques", "checkbox");
+$form2->setText("text", "prenom", "prenom", "prenom");
+$form2->setInput("sexe", "feminin", "radio", "Féminin");
+$form2->setInput("sexe", "masculin", "radio", "Masculin");
+$form2->setInput("matiere[]", "phylosophie", "checkbox", "Phylosophie");
+$form2->setInput("matiere[]", "mathematiques", "checkbox", "Mathématiques");
 $form2->setSubmit("Envoyer");
 echo $form2->getForm();
+
+var_dump($_POST);
