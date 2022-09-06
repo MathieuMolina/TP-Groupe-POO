@@ -1,6 +1,6 @@
 <?php
 
-//EXO4
+//EXO4 ----------------------------------------------------------------
 
 /**
  * Classe pour generer un formulaire
@@ -79,33 +79,34 @@ class Form
 
 //EXO 5: ----------------------------------------------------------
 
-class Form2 extends Form
-{
-    public function setInput(string $name, string $id, string $type, string $label = ''): void
-    {
-        $this->textForm .=
-            '<input type="'. $type . '" id="' . $id . '" name="' . $name . '" value="'. $id . '">
-            <label for="' . $id . '">' . $label . '</label>';
-    }
-}
+//class Form2 extends Form
+//{
+//    public function setInput(string $name, string $id, string $type, string $label = ''): void
+//    {
+//        $this->textForm .=
+//            '<input type="'. $type . '" id="' . $id . '" name="' . $name . '" value="'. $id . '">
+//            <label for="' . $id . '">' . $label . '</label>';
+//    }
+//}
+//
+//
+//
+//$form2 = new Form2("index.php", "post", "", "Choix");
+//$form2->setText("text", "prenom", "prenom", "prenom");
+//$form2->setInput("sexe", "feminin", "radio", "Féminin");
+//$form2->setInput("sexe", "masculin", "radio", "Masculin");
+//$form2->setInput("matiere[]", "phylosophie", "checkbox", "Phylosophie");
+//$form2->setInput("matiere[]", "mathematiques", "checkbox", "Mathématiques");
+//$form2->setSubmit("Envoyer");
+//echo $form2->getForm();
+//
+//var_dump($_POST);
 
 
+//EXO QCM ----------------------------------------------------------------
 
-$form2 = new Form2("index.php", "post", "", "Choix");
-$form2->setText("text", "prenom", "prenom", "prenom");
-$form2->setInput("sexe", "feminin", "radio", "Féminin");
-$form2->setInput("sexe", "masculin", "radio", "Masculin");
-$form2->setInput("matiere[]", "phylosophie", "checkbox", "Phylosophie");
-$form2->setInput("matiere[]", "mathematiques", "checkbox", "Mathématiques");
-$form2->setSubmit("Envoyer");
-echo $form2->getForm();
+class Qcm{
 
-var_dump($_POST);
-
-
-//EXO QCM
-class Qcm
-{
     public function generer()
     {
 
@@ -114,12 +115,10 @@ class Qcm
     public function setAppreciation()
     {
 
-    }d
+    }
 }
 
-class Question
-{
-    private $
+class Question{
 
     public function __construct(){
 
@@ -134,10 +133,13 @@ class Question
     }
 }
 
-class Reponse
-{
-    public function __construct(){
+class Reponse{
 
+    private string $reponse;
+    const BONNE_REPONSE = true;
+
+    public function __construct(string $reponse){
+        $this->reponse = $reponse;
     }
 }
 
