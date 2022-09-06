@@ -81,19 +81,30 @@ class Form
 
 class Form2 extends Form
 {
-    public function setRadio(string $nameRadio, string $idRadio)
+
+    public function setInput(string $name, string $id, string $type)
     {
         $this->textForm .=
 
-            '<input type="radio" id="' . $idRadio . '" name="' . $nameRadio . '">
-             <label for="' . $idRadio . '">' . $nameRadio . '</label><br/>'
+            '<input type=" '. $type . '" id="' . $id . '" name="' . $name . '">
+             <label for="' . $id . '">' . $id . '</label><br>';
     }
 
-    public function checkBox(string $nameCheckBox, string $idCheckBox){
-
-        $this->textForm .=
-
-            '<input type="checkbox" id="' .$idRadio. '" name="' . $nameCheckBox . '">
-            <label for="horns">Horns</label>'
-    }
+//    public function setCheckBox(string $nameCheckBox, string $idCheckBox){
+//
+//        $this->textForm .=
+//
+//            '<input type="checkbox" id="' .$idCheckBox. '" name="' . $nameCheckBox . '">
+//             <label for="' . $idCheckBox . '">' . $idCheckBox . '</label><br>';
+//    }
 }
+
+$form2 = new Form2("index.php", "post", "", "Mon Formulaire");
+
+$form2->setInput("sexe", "feminin", "radio");
+$form2->setInput("sexe", "masculin", "radio");
+
+$form2->setInput("Bob", "Valide si t'es un Homme", "");
+
+$form2->setSubmit("Envoyer");
+echo $form2->getForm();
