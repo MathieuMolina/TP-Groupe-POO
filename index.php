@@ -86,25 +86,23 @@ class Form2 extends Form
     {
         $this->textForm .=
 
-            '<input type=" '. $type . '" id="' . $id . '" name="' . $name . '">
-             <label for="' . $id . '">' . $id . '</label><br>';
-    }
 
-//    public function setCheckBox(string $nameCheckBox, string $idCheckBox){
-//
-//        $this->textForm .=
-//
-//            '<input type="checkbox" id="' .$idCheckBox. '" name="' . $nameCheckBox . '">
-//             <label for="' . $idCheckBox . '">' . $idCheckBox . '</label><br>';
-//    }
+            '<input type="'. $type . '" id="' . $id . '" name="' . $name . '">
+            <label for="' . $id . '">' . $id . '</label>';
+    }
 }
 
-$form2 = new Form2("index.php", "post", "", "Mon Formulaire");
+$form1 = new Form("index.php", "post", "", "Mon Formulaire");
+$form1->setText("text", "prenom", "prenom", "prenom");
+$form1->setText("text", "nom", "nom", "nom");
+$form1->setText("email", "email", "email", "email");
+echo $form1->getForm();
+
+$form2 = new Form2("index.php", "post", "", "Choix");
 
 $form2->setInput("sexe", "feminin", "radio");
 $form2->setInput("sexe", "masculin", "radio");
-
-$form2->setInput("Bob", "Valide si t'es un Homme", "");
-
+$form2->setInput("matiere", "Phylosophie", "checkbox");
+$form2->setInput("matiere", "Mathématiques", "checkbox");
 $form2->setSubmit("Envoyer");
 echo $form2->getForm();
