@@ -105,24 +105,6 @@
 
 //EXO QCM ----------------------------------------------------------------
 
-class Qcm{
-
-    public function generer(){
-
-    }
-
-    public function setAppreciation(){
-
-    }
-
-    public function ajouterQuestion(){
-
-
-    }
-}
-
-
-
 class Reponse
 {
     const BONNE_REPONSE = true;
@@ -137,44 +119,87 @@ class Reponse
         $this->statut = $statut;
     }
 
-    public function getReponse(){
+    public function getReponse()
+    {
         return $this->reponse;
     }
-    public function getStatut(){
+    public function getStatut()
+    {
         return $this->statut;
     }
 }
 
-class Question{
+class Question
+{
 
     private string $question;
-    public array $reponse;
+    public array $reponses;
     public string $explications;
 
-    public function __construct(string $question){
+    public function __construct(string $question)
+    {
         $this->question = $question;
     }
 
-    public function ajouterReponse(string $reponse) : void
+    public function ajouterReponse($reponse) : void
     {
 
 
     }
 
-    public function getReponse() :
-    {
-
-
-    }
-
-    public function setExplications($explications) : void
+    public function getReponses() : array
     {
 
     }
 
-
+//    public function setExplications($explications) : void
+//    {
+//
+//    }
+//
+//    public function getExplications() : string
+//    {
+//
+//    }
+//
+//    public function getQuestions() : string
+//    {
+//
+//    }
+//
+//
+//    public function getNumReponses() : integer
+//    {
+//
+//
+//    }
 
 }
+
+
+class Qcm{
+
+    public array  $questions;
+    public array $appreciations;
+
+    public function generer(){
+
+    }
+
+    public function setAppreciation(){
+
+    }
+
+    public function ajouterQuestion(question $question){
+
+
+    }
+}
+
+
+
+
+
 
 
 
@@ -185,7 +210,6 @@ $question1 = new Question('Et paf, ça fait...');
 $question1->ajouterReponse(new Reponse('Des mielpops'));
 $question1->ajouterReponse(new Reponse('Des chocapics', Reponse::BONNE_REPONSE));
 $question1->ajouterReponse(new Reponse('Des actimels'));
-
 
 
 
@@ -201,25 +225,3 @@ $question1->ajouterReponse(new Reponse('Des actimels'));
 //$rep6 = new Reponse('Programation Orientée Objet');
 
 var_dump($question1);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
