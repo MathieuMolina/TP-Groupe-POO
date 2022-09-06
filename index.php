@@ -101,3 +101,67 @@ $form2->setSubmit("Envoyer");
 echo $form2->getForm();
 
 var_dump($_POST);
+
+
+//EXO QCM
+class Qcm
+{
+    public function generer()
+    {
+
+    }
+
+    public function setAppreciation()
+    {
+
+    }d
+}
+
+class Question
+{
+    private $
+
+    public function __construct(){
+
+    }
+
+    public function ajouterReponse(){
+
+    }
+
+    public function setExplications(){
+
+    }
+}
+
+class Reponse
+{
+    public function __construct(){
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
