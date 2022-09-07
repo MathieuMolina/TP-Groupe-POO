@@ -108,14 +108,16 @@
 class Qcm
 {
     private array $questions = array();
+    protected array $appreciation = array();
 
-    public function ajouterQuestions(Question $question)
+    public function ajouterQuestions(Question $question) : string
     {
         $this->questions[] = $question;
     }
 
-    public function setAppreciation()
+    public function setAppreciation() : array
     {
+        $this->appreciation[] = $appreciation;
     }
 
     public function generer(): string
@@ -144,18 +146,19 @@ class Qcm
         return $code;
     }
 }
+
 class Question
 {
     protected string $question;
     protected array $reponses = [];
     protected string $explication;
 
-    public function construct(string $question)
+    public function __construct(string $question)
     {
         $this->question = $question;
     }
 
-    public function ajouterReponse(Reponse $reponse)
+    public function ajouterReponse(Reponse $reponse) : string
     {
         $this->reponses[] = $reponse;
     }
@@ -164,7 +167,7 @@ class Question
         return $this->reponses;
     }
 
-    public function setExpliquations($explication)
+    public function setExpliquations($explication) : string
     {
         $this->explication = $explication;
     }
@@ -206,21 +209,22 @@ class Reponse
     private bool $statut;
 
 
-    public function construct($reponse, $statut = self::MAUVAISE_REPONSE)
+    public function __construct($reponse, $statut = self::MAUVAISE_REPONSE)
     {
         $this->reponse = $reponse;
         $this->statut = $statut;
     }
 
-    public function getReponse()
+    public function getReponse() : string
     {
         return $this->reponse;
     }
-    public function getStatut()
+    public function getStatut() : string
     {
         return $this->statut;
     }
 }
+
 $qcm = new Qcm();
 
 $question1 = new Question('Et paf, ça fait ...');
