@@ -118,13 +118,13 @@ class Qcm
         $this->appreciation = array();
     }
 
-    public function ajouterQuestions(Question $question) : Qcm
+    public function ajouterQuestions(Question $question): Qcm
     {
         $this->questions[] = $question;
         return $this;
     }
 
-    public function setAppreciation(array $appreciation) : Qcm
+    public function setAppreciation(array $appreciation): Qcm
     {
         foreach ($appreciation as $key => $appr) {
             if (is_numeric($key))
@@ -145,19 +145,25 @@ class Qcm
         // var_dump($_POST);
         if (!empty($_POST)) {
             $code = '';
+            $score = 0;
             foreach ($_POST as $key => $value) {
                 $question = $this->questions[$key];
                 $reponse = $question->getReponse($value);
                 if ($reponse->getStatut() === Reponse::BONNE_REPONSE) {
-                    $code .= '<p>Bonne reponse : ' . $reponse->getReponse() . '</p>
-                        <p>'. $question->getExplication() .'</p>                       
-                        ';
+                    $code .= '<h2>Question ' . ($key + 1) . '</h2>
+                              <p><span style="color:green">Bonne reponse </span>: ' . $reponse->getReponse() . '</p>
+                              <p>' . $question->getExplication() . '</p>
+                              <hr>';
+                    $score++;
                 } else {
-                    $code .= '<p>Mauvaise reponse : ' . $reponse->getReponse() . '<br>' .
-                        'La bonne réponse : ' . $this->questions[$key]->getBonneReponse()->getReponse() . '<br/><br/>' .
-                        $question->getExplication() . '</p>';
+                    $code .= '<h2>Question ' . ($key + 1) . '</h2>
+                              <p><span style="color:#ff0000">Mauvaise reponse </span>: ' . $reponse->getReponse() . '</p>
+                              <p>La bonne réponse : ' . $this->questions[$key]->getBonneReponse()->getReponse() . '<p/>
+                              <p>' . $question->getExplication() . '</p>
+                              <hr>';
                 }
             }
+            $code .= $score;
             return $code;
         }
         $code = '<form method="post" action=""><fieldset>';
@@ -166,6 +172,7 @@ class Qcm
             foreach ($question->getReponses() as $index => $reponse) {
                 $code .= '<input type="radio" name="' . $indexquestion . '" value="' . $index . '">' . $reponse->getReponse() . '</input>';
             }
+            $code .= '<hr>';
         }
         $code .= '<br><br><input type="submit" value="TESTER"></input>';
         $code .= '</fieldset></form>';
@@ -268,11 +275,14 @@ $question2->setExplications('Sans commentaires si vous avez eu faux :-°');
 $qcm->ajouterQuestions($question2);
 
 
-$qcm->setAppreciation(array('0-10' => 'Pas top du tout ...',
-    '10-20' => 'Très bien ...'));
+$qcm->setAppreciation(array(
+    '0-10' => 'Pas top du tout ...',
+    '10-20' => 'Très bien ...'
+));
 
 
 echo $qcm->generer();
+
 
 echo '<pre>';
 print_r($qcm);
