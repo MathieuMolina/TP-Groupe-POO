@@ -103,27 +103,33 @@
 //var_dump($_POST);
 
 
-//EXO QCM ----------------------------------------------------------------
-
-
-
-
-
+//EXO QCM ------------------------------------------------------------------------------------------------
 
 class Qcm
 {
+    /**
+     *
+     */
     public function __construct()
     {
         $this->questions = array();
         $this->appreciation = array();
     }
 
+    /**
+     * @param Question $question
+     * @return $this
+     */
     public function ajouterQuestions(Question $question): Qcm
     {
         $this->questions[] = $question;
         return $this;
     }
 
+    /**
+     * @param array $appreciation
+     * @return $this
+     */
     public function setAppreciation(array $appreciation): Qcm
     {
         foreach ($appreciation as $key => $appr) {
@@ -139,151 +145,233 @@ class Qcm
         }
         return $this;
     }
+//
+//    /**
+//     * Generer un formulaire de QCM
+//     *
+//     * @return string
+//     */
+//    public function generer(): string
+//    {
+//        // var_dump($_POST);
+//        if (!empty($_POST)) {
+//            $code = '';
+//            $score = 0;
+//            foreach ($_POST as $key => $value) {
+//                $question = $this->questions[$key];
+//                $reponse = $question->getReponse($value);
+//                if ($reponse->getStatut() === Reponse::BONNE_REPONSE) {
+//                    $code .= '<h2>Question ' . ($key + 1) . '</h2>
+//                              <p><span style="color:green">Bonne reponse </span>: ' . $reponse->getReponse() . '</p>
+//                              <p>' . $question->getExplication() . '</p>
+//                              <hr>';
+//                    $score++;
+//                } else {
+//                    $code .= '<h2>Question ' . ($key + 1) . '</h2>
+//                              <p><span style="color:red">Mauvaise reponse </span>: ' . $reponse->getReponse() . '</p>
+//                              <p>La bonne réponse : ' . $this->questions[$key]->getBonneReponse()->getReponse() . '<p/>
+//                              <p>' . $question->getExplication() . '</p>
+//                              <hr>';
+//                }
+//            }
+//            $code .= 'Note : ' . $score = ($score / count($this->questions)) * 20;
+//            $code .= $this->appreciation[$score];
+//            return $code;
+//        }
+//        $code = '<form method="post" action=""><fieldset>';
+//        foreach ($this->questions as $indexquestion => $question) {
+//            $code .= '<h1>Question ' . ($indexquestion + 1)  . ' : ' . $question->getQuestion() . '</h1>';
+//            foreach ($question->getReponses() as $index => $reponse) {
+//                $code .= '<input type="radio" name="' . $indexquestion . '" value="' . $index . '">' . $reponse->getReponse() . '</input>';
+//            }
+//            $code .= '<hr>';
+//        }
+//        $code .= '<br><br><input type="submit" value="TESTER"></input>';
+//        $code .= '</fieldset></form>';
+//        return $code;
+//    }
+//}
+//
+///**
+// *
+// */
+//class Question
+//{
+//    /**
+//     * @var string
+//     */
+//    protected string $question;
+//    /**
+//     * @var array
+//     */
+//    protected array $reponses = [];
+//    /**
+//     * @var string
+//     */
+//    protected string $explication;
+//
+//    /**
+//     * @param string $question
+//     */
+//    public function __construct(string $question)
+//    {
+//        $this->question = $question;
+//    }
+//
+//    /**
+//     * @param Reponse $reponse
+//     * @return void
+//     */
+//    public function ajouterReponse(Reponse $reponse)
+//    {
+//        $this->reponses[] = $reponse;
+//    }
+//
+//    /**
+//     * @return array
+//     */
+//    public function getReponses(): array
+//    {
+//        return $this->reponses;
+//    }
+//
+//    /**
+//     * @param $explication
+//     * @return void
+//     */
+//    public function setExplications($explication)
+//    {
+//        $this->explication = $explication;
+//    }
+//
+//    /**
+//     * @return string
+//     */
+//    public function getExplication()
+//    {
+//        return $this->explication;
+//    }
+//
+//    /**
+//     * @return string
+//     */
+//    public function getQuestion(): string
+//    {
+//        return $this->question;
+//    }
+//
+//    /**
+//     * @param int $index
+//     * @return Reponse
+//     */
+//    public function getReponse(int $index): Reponse
+//    {
+//        return $this->reponses[$index];
+//    }
+//
+//    /**
+//     * @return int
+//     */
+//    public function getNumBonneReponse(): int
+//    {
+//        foreach ($this->reponses as $index => $reponse) {
+//            if ($reponse->getStatut() == Reponse::BONNE_REPONSE) {
+//                return $index;
+//            }
+//        }
+//    }
+//
+//    /**
+//     * @return Reponse
+//     */
+//    public function getBonneReponse(): Reponse
+//    {
+//        foreach ($this->reponses as $reponse) {
+//            if ($reponse->getStatut() == Reponse::BONNE_REPONSE) {
+//                return $reponse;
+//            }
+//        }
+//    }
+//}
+//
+///**
+// *
+// */
+//class Reponse
+//{
+//    /**
+//     *
+//     */
+//    const BONNE_REPONSE = true;
+//    /**
+//     *
+//     */
+//    const MAUVAISE_REPONSE = false;
+//    /**
+//     * @var string
+//     */
+//    private string $reponse;
+//    /**
+//     * @var bool|mixed
+//     */
+//    private bool $statut;
+//
+//
+//    /**
+//     * @param $reponse
+//     * @param $statut
+//     */
+//    public function __construct($reponse, $statut = self::MAUVAISE_REPONSE)
+//    {
+//        $this->reponse = $reponse;
+//        $this->statut = $statut;
+//    }
+//
+//    /**
+//     * @return string
+//     */
+//    public function getReponse()
+//    {
+//        return $this->reponse;
+//    }
+//
+//    /**
+//     * @return bool|mixed
+//     */
+//    public function getStatut()
+//    {
+//        return $this->statut;
+//    }
+//}
+//
+//$qcm = new Qcm();
+//
+//$question1 = new Question('Et paf, ça fait ...');
+//$question1->ajouterReponse(new Reponse('Des mielpops'));
+//$question1->ajouterReponse(new Reponse('Des chocapics', Reponse::BONNE_REPONSE));
+//$question1->ajouterReponse(new Reponse('Des actimels'));
+//$question1->setExplications('Et oui, la célèbre citation est « Et paf, ça fait des chocapics ! »');
+//$qcm->ajouterQuestions($question1);
+//
+//$question2 = new Question('POO signifie');
+//$question2->ajouterReponse(new Reponse('Php Orienté Objet'));
+//$question2->ajouterReponse(new Reponse('ProgrammatiOn Orientée'));
+//$question2->ajouterReponse(new Reponse('Programmation Orientée Objet', Reponse::BONNE_REPONSE));
+//$question2->setExplications('Sans commentaires si vous avez eu faux :-°');
+//$qcm->ajouterQuestions($question2);
+//
+//
+//$qcm->setAppreciation(array(
+//    '0-10' => 'Pas top du tout ...',
+//    '10-20' => 'Très bien ...'
+//));
+//
+//
+//echo $qcm->generer();
+//
+//// echo '<pre>';
+//// print_r($qcm);
+//// echo '</pre>';
 
-    public function generer(): string
-    {
-        // var_dump($_POST);
-        if (!empty($_POST)) {
-            $code = '';
-            $score = 0;
-            foreach ($_POST as $key => $value) {
-                $question = $this->questions[$key];
-                $reponse = $question->getReponse($value);
-                if ($reponse->getStatut() === Reponse::BONNE_REPONSE) {
-                    $code .= '<h2>Question ' . ($key + 1) . '</h2>
-                              <p><span style="color:green">Bonne reponse </span>: ' . $reponse->getReponse() . '</p>
-                              <p>' . $question->getExplication() . '</p>
-                              <hr>';
-                    $score++;
-                } else {
-                    $code .= '<h2>Question ' . ($key + 1) . '</h2>
-                              <p><span style="color:#ff0000">Mauvaise reponse </span>: ' . $reponse->getReponse() . '</p>
-                              <p>La bonne réponse : ' . $this->questions[$key]->getBonneReponse()->getReponse() . '<p/>
-                              <p>' . $question->getExplication() . '</p>
-                              <hr>';
-                }
-            }
-            $code .= $score;
-            return $code;
-        }
-        $code = '<form method="post" action=""><fieldset>';
-        foreach ($this->questions as $indexquestion => $question) {
-            $code .= '<h1>Question ' . ($indexquestion + 1)  . ' : ' . $question->getQuestion() . '</h1>';
-            foreach ($question->getReponses() as $index => $reponse) {
-                $code .= '<input type="radio" name="' . $indexquestion . '" value="' . $index . '">' . $reponse->getReponse() . '</input>';
-            }
-            $code .= '<hr>';
-        }
-        $code .= '<br><br><input type="submit" value="TESTER"></input>';
-        $code .= '</fieldset></form>';
-        return $code;
-    }
-}
+//EXO SPOTIFY ------------------------------------------------------------------------------------------------
 
-class Question
-{
-    protected string $question;
-    protected array $reponses = [];
-    protected string $explication;
-
-    public function __construct(string $question)
-    {
-        $this->question = $question;
-    }
-
-    public function ajouterReponse(Reponse $reponse)
-    {
-        $this->reponses[] = $reponse;
-    }
-    public function getReponses(): array
-    {
-        return $this->reponses;
-    }
-
-    public function setExplications($explication)
-    {
-        $this->explication = $explication;
-    }
-    public function getExplication()
-    {
-        return $this->explication;
-    }
-    public function getQuestion(): string
-    {
-        return $this->question;
-    }
-    public function getReponse(int $index): Reponse
-    {
-        return $this->reponses[$index];
-    }
-    public function getNumBonneReponse(): int
-    {
-        foreach ($this->reponses as $index => $reponse) {
-            if ($reponse->getStatut() == Reponse::BONNE_REPONSE) {
-                return $index;
-            }
-        }
-    }
-    public function getBonneReponse(): Reponse
-    {
-        foreach ($this->reponses as $reponse) {
-            if ($reponse->getStatut() == Reponse::BONNE_REPONSE) {
-                return $reponse;
-            }
-        }
-    }
-}
-
-class Reponse
-{
-    const BONNE_REPONSE = true;
-    const MAUVAISE_REPONSE = false;
-    private string $reponse;
-    private bool $statut;
-
-
-    public function __construct($reponse, $statut = self::MAUVAISE_REPONSE)
-    {
-        $this->reponse = $reponse;
-        $this->statut = $statut;
-    }
-
-    public function getReponse()
-    {
-        return $this->reponse;
-    }
-    public function getStatut()
-    {
-        return $this->statut;
-    }
-}
-
-$qcm = new Qcm();
-
-$question1 = new Question('Et paf, ça fait ...');
-$question1->ajouterReponse(new Reponse('Des mielpops'));
-$question1->ajouterReponse(new Reponse('Des chocapics', Reponse::BONNE_REPONSE));
-$question1->ajouterReponse(new Reponse('Des actimels'));
-$question1->setExplications('Et oui, la célèbre citation est « Et paf, ça fait des chocapics ! »');
-$qcm->ajouterQuestions($question1);
-
-$question2 = new Question('POO signifie');
-$question2->ajouterReponse(new Reponse('Php Orienté Objet'));
-$question2->ajouterReponse(new Reponse('ProgrammatiOn Orientée'));
-$question2->ajouterReponse(new Reponse('Programmation Orientée Objet', Reponse::BONNE_REPONSE));
-$question2->setExplications('Sans commentaires si vous avez eu faux :-°');
-$qcm->ajouterQuestions($question2);
-
-
-$qcm->setAppreciation(array(
-    '0-10' => 'Pas top du tout ...',
-    '10-20' => 'Très bien ...'
-));
-
-
-echo $qcm->generer();
-
-
-echo '<pre>';
-print_r($qcm);
-echo '</pre>';
