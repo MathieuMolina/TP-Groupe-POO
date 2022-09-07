@@ -378,40 +378,41 @@
 
 
 //EXO SPOTIFY ------------------------------------------------------------------------------------------------
+trait NameTraint
+{
+    protected string $name;
+    public function getName() : string {
+        return $this->name;
+    }
+    public function setName(string $name) :void {
+        $this->name = $name;
+    }
+
+}
 
 class Song
 {
-
-    private string $nom;
-    private float $duree;
+    use NameTraint;
+    private string $duree;
     private float $prix;
     private array $artistes = [];
 
-    public function __construct( string $nom, float $duree, float $prix, array $artistes = []) {
-        $this->nom = $nom;
+    //SET --------------------
+    public function setDuration(float $duree)
+    {
         $this->duree = $duree;
+    }
+    public function setPrix(float $prix)
+    {
         $this->prix = $prix;
+    }
+    public function setArtistes( string $artistes)
+    {
         $this->artistes[] = $artistes;
     }
 
-    //SET --------------------
-    public function setName(string $nom) {
-        $this->nom = $nom;
-    }
-    public function setDuration(float $duree) {
-        $this->duree = $duree;
-    }
-    public function setPrix(float $prix) {
-        $this->prix = $prix;
-    }
-    public function setArtistes( string $artistes) {
-        $this->artistes[] = $artistes;
-    }
+    //GET --------------------
 
-    //SET --------------------
-    public function getName() {
-        return $this->name;
-    }
     public function getDuree() {
         return $this->duree;
     }
@@ -425,26 +426,22 @@ class Song
 
 class Albums
 {
-
-    private string $nomAlbum;
+    use NameTraint;
     private int $dateSortie;
     private float $duree;
     private float $prixAlbum;
     private array $chansons = [];
 
 
-    public function __construct( string $nomAlbum, int $dateSortie, float $duree, float $prixAlbum, array $chansons){
-        $this->nomAlbum = $nomAlbum;
-        $this->dateSortie = $dateSortie;
-
-        $this->prixAlbum = $prixAlbum;
-        $this->chansons[] = $chansons;
-    }
+//    public function __construct( string $nomAlbum, int $dateSortie, float $duree, float $prixAlbum, array $chansons){
+//        $this->nomAlbum = $nomAlbum;
+//        $this->dateSortie = $dateSortie;
+//
+//        $this->prixAlbum = $prixAlbum;
+//        $this->chansons[] = $chansons;
+//    }
 
     //SET --------------------
-    public function setNomAlbum(string $nomAlbum) {
-        $this->nomAlbum = $nomAlbum;
-    }
     public function setDateSortie(Int $dateSortie) {
         $this->dateSortie = $dateSortie;
     }
@@ -454,12 +451,8 @@ class Albums
     public function setChansons(string $chansons) {
         $this->chansons[] = $chansons;
     }
-    public function getAlbumDuration
 
     //GET --------------------
-    public function getNomAlbum() {
-        return $this->nomAlbum;
-    }
     public function getDateSortie() {
         return $this->dateSortie;
     }
@@ -469,32 +462,29 @@ class Albums
     public function getChansons() {
         return $this->chansons;
     }
+    public function getAlbumDuration() {
+
+    }
 }
 
 class Artist
 {
-
-    private string $name;
+    use NameTraint;
     private string $nationality;
     private int $beginningYear;
     private array $albums = [];
     private string $style;
 
-    public function __construct(string $name, string $nationality,
-                                int  $beginningYear, string $albums, string $style)
-    {
-
-        $this->name = $name;
-        $this->nationality = $nationality;
-        $this->beginningYear = $beginningYear;
-        $this->albums[] = $albums;
-        $this->style = $style;
-    }
+//    public function __construct(string $name, string $nationality, int  $beginningYear, string $albums, string $style)
+//    {
+//
+//        $this->nationality = $nationality;
+//        $this->beginningYear = $beginningYear;
+//        $this->albums[] = $albums;
+//        $this->style = $style;
+//    }
 
     //SET --------------------
-    public function setName( string $name) {
-        $this->name = $name;
-    }
     public function setNationality( string $nationality) {
         $this->nationality = $nationality;
     }
@@ -509,9 +499,6 @@ class Artist
     }
 
     //GET --------------------
-    public function getName() {
-        return $this->name;
-    }
     public function getNationality() {
         return $this->nationality;
     }
@@ -529,43 +516,25 @@ class Artist
 
 class Style
 {
-
-    private string $style;
-
-        public function __construct(string $name
-        ){
-
-        $this->name = $name;
-    }
-
+ //INSERER LE TRAIT name
     //SET --------------------
-    public function setName(string $name) {
-        $this->name = $name;
-    }
-
-    //GET --------------------
-    public function getName() {
-        return $this->name;
-    }
 
 }
 
 class User{
 
-    private string $username;
+    use NameTraint;
     private int $birthDate;
     private int $age;
 
-    public function __construct(string $username, int $birthDate, int $age){
-        $this->username = $username;
-        $this->birthDate = $birthDate;
-        $this->age = $age;
-    }
+//    public function __construct(string $username, int $birthDate, int $age){
+//        $this->username = $username;
+//        $this->birthDate = $birthDate;
+//        $this->age = $age;
+//    }
 
     //SET --------------------
-    public function setUsername(string $username) {
-        $this->username = $username;
-    }
+
     public function setBirthDate(int $birthDate) {
         $this->birthDate = $birthDate;
     }
@@ -574,9 +543,7 @@ class User{
     }
 
     //GET --------------------
-    public function getUsername() {
-        return $this->username;
-    }
+
     public function getBirthDate() {
         return $this->birthDate;
     }
@@ -588,21 +555,18 @@ class User{
 
 class Playlist{
 
-    private string $nomPlaylist;
+    use NameTraint;
     private DateTime $dateCreation;
     private DateTime $dateModification;
 
-    public function __construct(string $nomPlaylist, Int $dateCreation, Int $dateModification){
-
-        $this->nomPlaylist = $nomPlaylist;
-        $this->dateCreation = $dateCreation;
-        $this->dateModification = $dateModification;
-    }
+//    public function __construct(string $nomPlaylist, Int $dateCreation, Int $dateModification){
+//
+//        $this->nomPlaylist = $nomPlaylist;
+//        $this->dateCreation = $dateCreation;
+//        $this->dateModification = $dateModification;
+//    }
 
     //SET --------------------
-    public function setNomPlaylist(string $nomPlaylist) {
-        $this->nomPlaylist = $nomPlaylist;
-    }
     public function setDateCreation(Int $dateCreation) {
         $this->dateCreation = $dateCreation;
     }
@@ -611,9 +575,6 @@ class Playlist{
     }
 
     //GET --------------------
-    public function getNomPlaylist() {
-        return $this->nomPlaylist;
-    }
     public function getDateCreation() {
         return $this->dateCreation;
     }
@@ -621,53 +582,3 @@ class Playlist{
         return $this->dateModification;
     }
 }
-
-
-/////// Création des styles \\\\\
-//$style1 = new Style();
-//$style1->setName('Heavy metal');
-//$style2 = new Style();
-//$style2->setName('Trash metal');
-//$style3 = new Style();
-//$style3->setName('Hard rock');
-//
-/////// Création des artistes \\\\\
-//$artist = (new Artist())
-//    ->setBeginningYear(1981)
-//    ->setNationality('American')
-//    ->addStyle($style1)
-//    ->addStyle($style2)
-//    ->addStyle($style3)
-//    ->setName('Metallica');
-//
-//$song = new Song();
-//$song->setDuration('00:06:37');
-//
-//$song1 = new Song();
-//$song1->setDuration('00:04:45');
-//
-//$album = new Album();
-//$album->addSong($song);
-//$album->addSong($song1);
-//
-//echo $album->getAlbumDuration();
-//echo '<br>';
-//
-//$user = new User();
-//$date = (new DateTime())
-//    ->setDate(1990, 1, 1);
-//$user->setBirthDate($date);
-//echo $user->getAge();
-//
-//echo '<br>';
-//
-//echo $artist;
-//echo '<ul>';
-//foreach ($artist->getStyles() as $style) {
-//    echo '<li>';
-//    echo $style;
-//    echo '</li>';
-//}
-//echo '</ul>';
-//
-//Envoyer un message dans #php
