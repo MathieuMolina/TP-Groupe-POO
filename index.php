@@ -391,21 +391,21 @@ class Song
         $this->nom = $nom;
         $this->duree = $duree;
         $this->prix = $prix;
-        $this->artistes = $artistes;
+        $this->artistes[] = $artistes;
     }
 
     //SET --------------------
     public function setName(string $nom) {
         $this->nom = $nom;
     }
-    public function setDuree(float $duree) {
+    public function setDuration(float $duree) {
         $this->duree = $duree;
     }
     public function setPrix(float $prix) {
         $this->prix = $prix;
     }
     public function setArtistes( string $artistes) {
-        $this->artistes = $artistes;
+        $this->artistes[] = $artistes;
     }
 
     //SET --------------------
@@ -430,15 +430,15 @@ class Albums
     private int $dateSortie;
     private float $duree;
     private float $prixAlbum;
-    private array $chansons = array();
+    private array $chansons = [];
 
 
     public function __construct( string $nomAlbum, int $dateSortie, float $duree, float $prixAlbum, array $chansons){
         $this->nomAlbum = $nomAlbum;
         $this->dateSortie = $dateSortie;
-        
+
         $this->prixAlbum = $prixAlbum;
-        $this->chansons = $chansons;
+        $this->chansons[] = $chansons;
     }
 
     //SET --------------------
@@ -452,8 +452,9 @@ class Albums
         $this->prixAlbum = $prixAlbum;
     }
     public function setChansons(string $chansons) {
-        $this->chansons = $chansons;
+        $this->chansons[] = $chansons;
     }
+    public function getAlbumDuration
 
     //GET --------------------
     public function getNomAlbum() {
@@ -476,7 +477,7 @@ class Artist
     private string $name;
     private string $nationality;
     private int $beginningYear;
-    private string $albums;
+    private array $albums = [];
     private string $style;
 
     public function __construct(string $name, string $nationality,
@@ -486,7 +487,7 @@ class Artist
         $this->name = $name;
         $this->nationality = $nationality;
         $this->beginningYear = $beginningYear;
-        $this->albums = $albums;
+        $this->albums[] = $albums;
         $this->style = $style;
     }
 
@@ -501,9 +502,9 @@ class Artist
         $this->beginningYear = $beginningYear;
     }
     public function setAlbums( string $albums) {
-        $this->albums = $albums;
+        $this->albums[] = $albums;
     }
-    public function setStyle(string $style) {
+    public function addStyle(string $style) {
         $this->style = $style;
     }
 
@@ -531,19 +532,20 @@ class Style
 
     private string $style;
 
-        public function __construct(string $style){
+        public function __construct(string $name
+        ){
 
-        $this->style = $style;
+        $this->name = $name;
     }
 
     //SET --------------------
-    public function setStyle(string $style) {
-        $this->style = $style;
+    public function setName(string $name) {
+        $this->name = $name;
     }
 
     //GET --------------------
-    public function getStyle() {
-        return $this->style;
+    public function getName() {
+        return $this->name;
     }
 
 }
@@ -619,3 +621,53 @@ class Playlist{
         return $this->dateModification;
     }
 }
+
+
+/////// Création des styles \\\\\
+//$style1 = new Style();
+//$style1->setName('Heavy metal');
+//$style2 = new Style();
+//$style2->setName('Trash metal');
+//$style3 = new Style();
+//$style3->setName('Hard rock');
+//
+/////// Création des artistes \\\\\
+//$artist = (new Artist())
+//    ->setBeginningYear(1981)
+//    ->setNationality('American')
+//    ->addStyle($style1)
+//    ->addStyle($style2)
+//    ->addStyle($style3)
+//    ->setName('Metallica');
+//
+//$song = new Song();
+//$song->setDuration('00:06:37');
+//
+//$song1 = new Song();
+//$song1->setDuration('00:04:45');
+//
+//$album = new Album();
+//$album->addSong($song);
+//$album->addSong($song1);
+//
+//echo $album->getAlbumDuration();
+//echo '<br>';
+//
+//$user = new User();
+//$date = (new DateTime())
+//    ->setDate(1990, 1, 1);
+//$user->setBirthDate($date);
+//echo $user->getAge();
+//
+//echo '<br>';
+//
+//echo $artist;
+//echo '<ul>';
+//foreach ($artist->getStyles() as $style) {
+//    echo '<li>';
+//    echo $style;
+//    echo '</li>';
+//}
+//echo '</ul>';
+//
+//Envoyer un message dans #php
