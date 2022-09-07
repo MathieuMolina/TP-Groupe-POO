@@ -379,12 +379,30 @@
 
 //EXO SPOTIFY ------------------------------------------------------------------------------------------------
 
-class Chansons{
+class Song{
+
+    private string $nom;
+    private float $duree;
+
+
 
     public function __construct( string $nom, float $duree, float $prix, array $artistes = []) {
         $this->nom = $nom;
         $this->duree = $duree;
         $this->prix = $prix;
+        $this->artistes = $artistes;
+    }
+
+    public function setName($nom) {
+        $this->nom = $nom;
+    }
+    public function setDuree($duree) {
+        $this->duree = $duree;
+    }
+    public function setPrix($prix) {
+        $this->prix = $prix;
+    }
+    public function setArtistes($artistes) {
         $this->artistes = $artistes;
     }
 }
@@ -397,46 +415,101 @@ class Albums{
         $this->prixAlbum = $prixAlbum;
         $this->chansons = $chansons;
     }
-}
 
-class Artistes
-{
-
-    public function __construct(string $nomArtiste, string $nationalite,
-                                DateTime  $dateDebut, string $albums, string $artisteStyle)
-    {
-
-        $this->nomArtiste = $nomArtiste;
-        $this->nationalite = $nationalite;
-        $this->dateDebut = $dateDebut;
-        $this->albums = $albums;
-        $this->artisteStyle = $artisteStyle;
+    public function setNomAlbum($nomAlbum) {
+        $this->nomAlbum = $nomAlbum;
+    }
+    public function setDateSortie($dateSortie) {
+        $this->dateSortie = $dateSortie;
+    }
+    public function setPrixAlbum($prixAlbum) {
+        $this->prixAlbum = $prixAlbum;
+    }
+    public function setChansons($chansons) {
+        $this->chansons = $chansons;
     }
 }
 
-class Styles{
+class Artist
+{
+
+    public function __construct(string $name, string $nationality,
+                                DateTime  $beginningYear, string $albums, string $style)
+    {
+
+        $this->name = $name;
+        $this->nationality = $nationality;
+        $this->beginningYear = $beginningYear;
+        $this->albums = $albums;
+        $this->style = $style;
+    }
+    public function setName($name) {
+        $this->name = $name;
+    }
+    public function setNationality($nationality) {
+        $this->nationality = $nationality;
+    }
+    public function setBeginningYear($beginningYear) {
+        $this->beginningYear = $beginningYear;
+    }
+    public function setAlbums($albums) {
+        $this->albums = $albums;
+    }
+    public function setStyle($style) {
+        $this->style = $style;
+    }
+}
+
+class Style{
 
         public function __construct(string $style){
 
         $this->style = $style;
     }
 
+    public function setStyle($style) {
+        $this->style = $style;
+    }
 }
 
-class Utilisateur{
+class User{
 
-    public function __construct(string $username, int $userid){
-        $this->username = $username
-            $this->userid = $userid;
+    public function __construct(string $username, int $birthDate, int $age){
+        $this->username = $username;
+        $this->birthDate = $birthDate;
+        $this->age = $age;
+    }
+    public function setUsername($username) {
+        $this->username = $username;
+    }
+    public function setBirthDate($birthDate) {
+        $this->birthDate = $birthDate;
+    }
+    public function setAge($age) {
+        $this->age = $age;
+    }
+    public function getAge() {
+        return $this->age;
     }
 }
 
 class Playlist{
 
-    public function __construct(string $nomPlaylist, dateTime $dateCreation, dateTime $dateModification){
+    public function __construct(string $nomPlaylist, DateTime $dateCreation, DateTime $dateModification){
 
         $this->nomPlaylist = $nomPlaylist;
         $this->dateCreation = $dateCreation;
         $this->dateModification = $dateModification;
     }
+
+    public function setNomPlaylist($nomPlaylist) {
+        $this->nomPlaylist = $nomPlaylist;
+    }
+    public function setDateCreation($dateCreation) {
+        $this->dateCreation = $dateCreation;
+    }
+    public function setDateModification($dateModification) {
+        $this->dateModification = $dateModification;
+    }
+
 }
