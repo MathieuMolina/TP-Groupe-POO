@@ -383,43 +383,52 @@ class Song{
 
     private string $nom;
     private float $duree;
-
-
+    private float $prix;
+    private array $artistes = [];
 
     public function __construct( string $nom, float $duree, float $prix, array $artistes = []) {
         $this->nom = $nom;
         $this->duree = $duree;
         $this->prix = $prix;
-        $this->artistes = $artistes;
+        $this->artistes = $artistes[];
     }
 
-    public function setName($nom) {
+    //SET --------------------
+    public function setName(string $nom) {
         $this->nom = $nom;
     }
-    public function setDuree($duree) {
+    public function setDuree(float $duree) {
         $this->duree = $duree;
     }
-    public function setPrix($prix) {
+    public function setPrix(float $prix) {
         $this->prix = $prix;
     }
-    public function setArtistes($artistes) {
-        $this->artistes = $artistes;
+    public function setArtistes( string $artistes) {
+        $this->artistes = $artistes[];
     }
+
 }
 
 class Albums{
 
+    private string $nom;
+    private float $duree;
+    private float $prix;
+    private array $chansons = [];
+
+
     public function __construct( string $nomAlbum, DateTime $dateSortie, float $prixAlbum, string $chansons){
-        $this->nomAlbmum = $nomAlbum;
+        $this->nomAlbum = $nomAlbum;
         $this->dateSortie = $dateSortie;
         $this->prixAlbum = $prixAlbum;
         $this->chansons = $chansons;
     }
 
-    public function setNomAlbum($nomAlbum) {
+    //SET --------------------
+    public function setNomAlbum(string $nomAlbum) {
         $this->nomAlbum = $nomAlbum;
     }
-    public function setDateSortie($dateSortie) {
+    public function setDateSortie( fla$dateSortie) {
         $this->dateSortie = $dateSortie;
     }
     public function setPrixAlbum($prixAlbum) {
@@ -433,6 +442,12 @@ class Albums{
 class Artist
 {
 
+    private string $name;
+    private string $nationality;
+    private DateTime $beginningYear;
+    private string $albums;
+    private string $style;
+
     public function __construct(string $name, string $nationality,
                                 DateTime  $beginningYear, string $albums, string $style)
     {
@@ -443,6 +458,8 @@ class Artist
         $this->albums = $albums;
         $this->style = $style;
     }
+
+    //SET --------------------
     public function setName($name) {
         $this->name = $name;
     }
@@ -458,27 +475,38 @@ class Artist
     public function setStyle($style) {
         $this->style = $style;
     }
+
 }
 
 class Style{
+
+    private string $style;
 
         public function __construct(string $style){
 
         $this->style = $style;
     }
 
+    //SET --------------------
     public function setStyle($style) {
         $this->style = $style;
     }
+
 }
 
 class User{
+
+    private string $username;
+    private int $birthDate;
+    private int $age;
 
     public function __construct(string $username, int $birthDate, int $age){
         $this->username = $username;
         $this->birthDate = $birthDate;
         $this->age = $age;
     }
+
+    //SET --------------------
     public function setUsername($username) {
         $this->username = $username;
     }
@@ -491,9 +519,15 @@ class User{
     public function getAge() {
         return $this->age;
     }
+
+
 }
 
 class Playlist{
+
+    private string $nomPlaylist;
+    private DateTime $dateCreation;
+    private DateTime $dateModification;
 
     public function __construct(string $nomPlaylist, DateTime $dateCreation, DateTime $dateModification){
 
@@ -502,6 +536,7 @@ class Playlist{
         $this->dateModification = $dateModification;
     }
 
+    //SET --------------------
     public function setNomPlaylist($nomPlaylist) {
         $this->nomPlaylist = $nomPlaylist;
     }
