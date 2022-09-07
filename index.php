@@ -105,46 +105,46 @@
 
 //EXO QCM ------------------------------------------------------------------------------------------------
 
-class Qcm
-{
-    /**
-     *
-     */
-    public function __construct()
-    {
-        $this->questions = array();
-        $this->appreciation = array();
-    }
-
-    /**
-     * @param Question $question
-     * @return $this
-     */
-    public function ajouterQuestions(Question $question): Qcm
-    {
-        $this->questions[] = $question;
-        return $this;
-    }
-
-    /**
-     * @param array $appreciation
-     * @return $this
-     */
-    public function setAppreciation(array $appreciation): Qcm
-    {
-        foreach ($appreciation as $key => $appr) {
-            if (is_numeric($key))
-                $this->appreciation[(int)$appr] = $appr;
-            else {
-                list($min, $max) = explode('-', $key);
-                if ($min > $max)
-                    list($min, $max) = array($max, $min);
-                for ($i = (int)$min; $i <= $max; $i++)
-                    $this->appreciation[$i] = $appr;
-            }
-        }
-        return $this;
-    }
+//class Qcm
+//{
+//    /**
+//     *
+//     */
+//    public function __construct()
+//    {
+//        $this->questions = array();
+//        $this->appreciation = array();
+//    }
+//
+//    /**
+//     * @param Question $question
+//     * @return $this
+//     */
+//    public function ajouterQuestions(Question $question): Qcm
+//    {
+//        $this->questions[] = $question;
+//        return $this;
+//    }
+//
+//    /**
+//     * @param array $appreciation
+//     * @return $this
+//     */
+//    public function setAppreciation(array $appreciation): Qcm
+//    {
+//        foreach ($appreciation as $key => $appr) {
+//            if (is_numeric($key))
+//                $this->appreciation[(int)$appr] = $appr;
+//            else {
+//                list($min, $max) = explode('-', $key);
+//                if ($min > $max)
+//                    list($min, $max) = array($max, $min);
+//                for ($i = (int)$min; $i <= $max; $i++)
+//                    $this->appreciation[$i] = $appr;
+//            }
+//        }
+//        return $this;
+//    }
 //
 //    /**
 //     * Generer un formulaire de QCM
@@ -373,5 +373,70 @@ class Qcm
 //// print_r($qcm);
 //// echo '</pre>';
 
+
+
+
+
 //EXO SPOTIFY ------------------------------------------------------------------------------------------------
 
+class Chansons{
+
+    public function __construct( string $nom, float $duree, float $prix, array $artistes = []) {
+        $this->nom = $nom;
+        $this->duree = $duree;
+        $this->prix = $prix;
+        $this->artistes = $artistes;
+    }
+}
+
+class Albums{
+
+    public function __construct( string $nomAlbum, DateTime $dateSortie, float $prixAlbum, string $chansons){
+        $this->nomAlbmum = $nomAlbum;
+        $this->dateSortie = $dateSortie;
+        $this->prixAlbum = $prixAlbum;
+        $this->chansons = $chansons;
+    }
+}
+
+class Artistes
+{
+
+    public function __construct(string $nomArtiste, string $nationalite,
+                                DateTime  $dateDebut, string $albums, string $artisteStyle)
+    {
+
+        $this->nomArtiste = $nomArtiste;
+        $this->nationalite = $nationalite;
+        $this->dateDebut = $dateDebut;
+        $this->albums = $albums;
+        $this->artisteStyle = $artisteStyle;
+    }
+}
+
+class Styles{
+
+        public function __construct(string $style){
+
+        $this->style = $style;
+    }
+
+}
+
+class Utilisateur{
+
+    public function __construct(string $username, int $userid){
+        $this->username = $username
+            $this->userid = $userid;
+    }
+}
+
+class Playlist{
+
+    public function __construct(string $nomPlaylist, dateTime $dateCreation, dateTime $dateModification){
+
+        $this->nomPlaylist = $nomPlaylist;
+        $this->dateCreation = $dateCreation;
+        $this->dateModification = $dateModification;
+    }
+}
