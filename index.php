@@ -108,7 +108,7 @@
 class Qcm
 {
     private array $questions = array();
-    public integer $note = 0;
+    public int $note = 0;
 
     public function ajouterQuestions(Question $question)
     {
@@ -117,6 +117,8 @@ class Qcm
 
     public function setAppreciation()
     {
+
+
     }
 
     public function generer(): string
@@ -129,8 +131,8 @@ class Qcm
                 if ($reponse->getStatut() == Reponse::BONNE_REPONSE) {
                     $code = 'Bonne reponse : ' . $reponse->getReponse();
                     return $code;
-                    ++$note;
-                    echo $note;
+                    $note+1;
+                    var_dump( $note);
                 } else {
                     $code = '<p>Mauvaise reponse : ' . $reponse->getReponse() . '<br>' .
                         'La bonne reponse : ' . $this->questions[$key]->getBonneReponse()->getReponse() . '<br/><br/>' .
@@ -142,7 +144,7 @@ class Qcm
         $code = '<form method="post" action="">
                 <fieldset>';
         foreach ($this->questions as $indexquestion => $question) {
-            $code .= '<h1>Question ' . ++$indexquestion  . ' : ' . $question->getQuestion() . '</h1>';
+            $code .= '<h1>Question ' . ($indexquestion +1) . ' : ' . $question->getQuestion() . '</h1>';
             foreach ($question->getReponses() as $index => $reponse) {
                 $code .= '<input type="radio" name="' . $indexquestion . '" value="' . $index . '">' . $reponse->getReponse() . '</input>';
             }
