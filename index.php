@@ -148,11 +148,13 @@ class Qcm
             foreach ($_POST as $key => $value) {
                 $question = $this->questions[$key];
                 $reponse = $question->getReponse($value);
-                if ($reponse->getStatut() == Reponse::BONNE_REPONSE) {
-                    $code .= '<p>Bonne reponse : ' . $reponse->getReponse() . '</p>';
+                if ($reponse->getStatut() === Reponse::BONNE_REPONSE) {
+                    $code .= '<p>Bonne reponse : ' . $reponse->getReponse() . '</p>
+                        <p>'. $question->getExplication() .'</p>                       
+                        ';
                 } else {
                     $code .= '<p>Mauvaise reponse : ' . $reponse->getReponse() . '<br>' .
-                        'La bonne reponse : ' . $this->questions[$key]->getBonneReponse()->getReponse() . '<br/><br/>' .
+                        'La bonne réponse : ' . $this->questions[$key]->getBonneReponse()->getReponse() . '<br/><br/>' .
                         $question->getExplication() . '</p>';
                 }
             }
@@ -272,7 +274,6 @@ $qcm->setAppreciation(array('0-10' => 'Pas top du tout ...',
 
 echo $qcm->generer();
 
-echo $qcm->generer();
 echo '<pre>';
 print_r($qcm);
 echo '</pre>';
