@@ -108,16 +108,15 @@
 class Qcm
 {
     private array $questions = array();
-    protected array $appreciation = array();
+    public integer $note = 0;
 
-    public function ajouterQuestions(Question $question) : string
+    public function ajouterQuestions(Question $question)
     {
         $this->questions[] = $question;
     }
 
-    public function setAppreciation() : array
+    public function setAppreciation()
     {
-        $this->appreciation[] = $appreciation;
     }
 
     public function generer(): string
@@ -125,24 +124,31 @@ class Qcm
         var_dump($_POST);
         if (!empty($_POST)) {
             foreach ($_POST as $key => $value) {
-                $reponse = $this->questions[$key]->getReponse($value);
+                $question = $this->questions[$key];
+                $reponse = $question->getReponse($value);
                 if ($reponse->getStatut() == Reponse::BONNE_REPONSE) {
-                    echo 'Bonne reponse : ' . $reponse->getReponse();
+                    $code = 'Bonne reponse : ' . $reponse->getReponse();
+                    return $code;
+                    ++$note;
+                    echo $note;
                 } else {
-                    echo 'Mauvaise reponse : ' . $reponse->getReponse();
-                    echo 'La bonne reponse : ' . $this->questions[$key]->getBonneReponse()->getReponse();
+                    $code = '<p>Mauvaise reponse : ' . $reponse->getReponse() . '<br>' .
+                        'La bonne reponse : ' . $this->questions[$key]->getBonneReponse()->getReponse() . '<br/><br/>' .
+                        $question->getExplication() . '</p>';
+                    return $code;
                 }
             }
         }
-        $code = '<form method="post" action="">';
+        $code = '<form method="post" action="">
+                <fieldset>';
         foreach ($this->questions as $indexquestion => $question) {
-            $code .= '<h1>' . $question->getQuestion() . '</h1>';
+            $code .= '<h1>Question ' . ++$indexquestion  . ' : ' . $question->getQuestion() . '</h1>';
             foreach ($question->getReponses() as $index => $reponse) {
                 $code .= '<input type="radio" name="' . $indexquestion . '" value="' . $index . '">' . $reponse->getReponse() . '</input>';
             }
         }
-        $code .= '<input type="submit" value="TESTER"></input>';
-        $code .= '</form>';
+        $code .= '<br><br><input type="submit" value="TESTER"></input>';
+        $code .= '</fieldset></form>';
         return $code;
     }
 }
@@ -158,7 +164,7 @@ class Question
         $this->question = $question;
     }
 
-    public function ajouterReponse(Reponse $reponse) : string
+    public function ajouterReponse(Reponse $reponse)
     {
         $this->reponses[] = $reponse;
     }
@@ -167,11 +173,11 @@ class Question
         return $this->reponses;
     }
 
-    public function setExpliquations($explication) : string
+    public function setExplications($explication)
     {
         $this->explication = $explication;
     }
-    public function getExplication(): string
+    public function getExplication()
     {
         return $this->explication;
     }
@@ -215,11 +221,11 @@ class Reponse
         $this->statut = $statut;
     }
 
-    public function getReponse() : string
+    public function getReponse()
     {
         return $this->reponse;
     }
-    public function getStatut() : string
+    public function getStatut()
     {
         return $this->statut;
     }
@@ -231,9 +237,18 @@ $question1 = new Question('Et paf, ça fait ...');
 $question1->ajouterReponse(new Reponse('Des mielpops'));
 $question1->ajouterReponse(new Reponse('Des chocapics', Reponse::BONNE_REPONSE));
 $question1->ajouterReponse(new Reponse('Des actimels'));
+$question1->setExplications('Et oui, la célèbre citation est « Et paf, ça fait des chocapics ! »');
 $qcm->ajouterQuestions($question1);
-echo $qcm->generer();
 
+$question2 = new Question('POO signifie');
+$question2->ajouterReponse(new Reponse('Php Orienté Objet'));
+$question2->ajouterReponse(new Reponse('ProgrammatiOn Orientée'));
+$question2->ajouterReponse(new Reponse('Programmation Orientée Objet', Reponse::BONNE_REPONSE));
+$question2->setExplications('Sans commentaires si vous avez eu faux :-°');
+$qcm->ajouterQuestions($question2);
+
+
+echo $qcm->generer();
 echo '<pre>';
 print_r($qcm);
 echo '</pre>';
