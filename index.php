@@ -400,6 +400,8 @@ class Song
     use NameTrait;
     private string $duration;
     private array $artists;
+    private array $albums = [];
+    private array $Playlists = [];
 
     public function __construct(string $name)
     {
@@ -446,6 +448,10 @@ class Song
         $this->artists[] = $artists;
     }
 
+    public function addAlbums( Album $albums) : void
+    {
+        $this->albums[] = $albums;
+    }
 }
 
 class Album
@@ -457,10 +463,10 @@ class Album
     private float $price;
     private array $songs = array();
 
-    public function addSong(Song $name) : Album
+    public function addSong(Song $name) : Song
     {
         $this->songs[] = $name;
-        return $this;
+        return $this->Song($name);
     }
 
     public function getDate(): int
@@ -629,6 +635,8 @@ class Playlist{
     use NameTrait;
     private DateTime $dateCreation;
     private DateTime $dateModification;
+    private array $Songs = [];
+
 
     /**
      * @return DateTime
@@ -676,21 +684,21 @@ $style3->setName('Hard rock');
 
 echo $style1->getName();
 
-
 $song1 = new Song( 'Fight fire with fire');
+$song1->addArtist($artist);
+$song1->addAlbums($albums);
+var_dump($song1->getArtists());
+
 
 /// Création des artistes \\\\\
 $artist = (new Artist());
 $artist->setBeginningYear(1981);
 $artist->setNationality('American');
+$artist->setName('Metallica');
 //$artist->addStyle($style1);
 //$artist->addStyle($style2);
 //$artist->addStyle($style3);
-$artist->setName('Metallica');
 
-$song1->addArtist($artist);
-
-var_dump($song1->getArtists());
 
 //$song = new Song();
 //$song->setDuration('00:06:37');
