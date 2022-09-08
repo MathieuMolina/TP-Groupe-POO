@@ -379,505 +379,238 @@
 
 //EXO SPOTIFY ------------------------------------------------------------------------------------------------
 
-
-trait TraitName
+/**
+ *
+ */
+trait NameTrait
 {
+    protected string $name;
 
-    /**
-     * @var string
-     */
-    private string $name;
-
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     * @return Playlist|Album|Artist|Song|Style|TraitName|User
-     */
-    public function setName(string $name): self
+    public function setName(string $name): void
     {
         $this->name = $name;
-
-        return $this;
     }
-
 }
 
-/**
- *
- */
 class Song
 {
-    use TraitName;
-
-    /**
-     * @var string
-     */
+    use NameTrait;
     private string $duration;
+    // private array $artists = array();
 
-    /**
-     * @var float
-     */
-    private float $price;
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
 
-    /**
-     * @var Artist[]
-     */
-    private array $artists;
 
-    /**
-     * @return string
-     */
+
     public function getDuration(): string
     {
         return $this->duration;
     }
 
-    /**
-     * @param string $duration
-     */
     public function setDuration(string $duration): void
     {
         $this->duration = $duration;
     }
 
-    /**
-     * @return float
-     */
-    public function getPrice(): float
-    {
-        return $this->price;
-    }
-
-    /**
-     * @param float $price
-     */
-    public function setPrice(float $price): void
-    {
-        $this->price = $price;
-    }
-
-    /**
-     * @return Artist[]
-     */
     public function getArtists(): array
     {
         return $this->artists;
     }
 
-    /**
-     * @param Artist $artist
-     */
-    public function addArtists(Artist $artist): void
+    public function setArtists(array $artists): void
     {
-        if (!in_array($artist, $this->artists)) {
-            $this->artists[] = $artist;
-        }
+        $this->artists = $artists;
     }
-
-    /**
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return $this->name . ' (' . $this->duration . ')';
-    }
-
-    /**
-     * @return string
-     */
-    public function getIntDuration(): string
-    {
-        return $this->duration;
-        // chaine initiale : '00:01:50'
-        // $explodedDuration[] = ['00', '01', '50']
-//        $explodedDuration = explode(':', $this->duration);
-//        return
-//            ($explodedDuration[0] * 3600)
-//            + ($explodedDuration[1] * 60)
-//            + $explodedDuration[2];
-    }
-
 }
 
-/**
- *
- */
 class Album
 {
-    use TraitName;
+    use NameTrait;
 
-    /**
-     * @var int
-     */
-    private int $releasedYear;
-
-    /**
-     * @var float
-     */
+    private int $date;
+    private string $duration;
     private float $price;
+    private array $songs = array();
 
-    /**
-     * @var Song[]
-     */
-    private array $songs;
-
-    /**
-     * Album constructor.
-     */
-    public function __construct()
+    public function __construct(string $name)
     {
-        $this->songs = [];
+        $this->name = $name;
     }
 
-    /**
-     * @return int
-     */
-    public function getReleasedYear(): int
+    public function addSong(Song $name): Album
     {
-        return $this->releasedYear;
+        $this->songs[] = $name;
+        return $this;
     }
 
-    /**
-     * @param int $releasedYear
-     */
-    public function setReleasedYear(int $releasedYear): void
+    public function getDuration(): string
     {
-        $this->releasedYear = $releasedYear;
+        $duration = new DateTime('00:00:00');
+        foreach ($this->songs as $song) {
+            $d = $this->time_to_interval($song->getDuration());
+            $duration->add($d);
+        }
+        return $duration->format('H:i:s');
     }
 
-    /**
-     * @return float
-     */
+    public function time_to_interval($time): DateInterval
+    {
+        $parts = explode(':', $time);
+        return new DateInterval('PT' . $parts[0] . 'H' . $parts[1] . 'M' . $parts[2] . 'S');
+    }
+
+    public function getDate(): int
+    {
+        return $this->date;
+    }
+
+    public function setDate(int $date): void
+    {
+        $this->date = $date;
+    }
+
+    public function setDuration(string $duration): void
+    {
+        $this->duration = $duration;
+    }
+
     public function getPrice(): float
     {
         return $this->price;
     }
 
-    /**
-     * @param float $price
-     */
     public function setPrice(float $price): void
     {
         $this->price = $price;
     }
 
-    /**
-     * @return Song[]
-     */
     public function getSongs(): array
     {
         return $this->songs;
     }
 
-    /**
-     * @param Song $song
-     */
-    public function addSong(Song $song): void
+    public function setSongs(array $songs): void
     {
-        if (!in_array($song, $this->songs)) {
-            $this->songs[] = $song;
-        }
-    }
-
-    /**
-     * @return string
-     * @throws Exception
-     */
-    public function getAlbumDuration(): string
-    {
-        $totalDuration = new DateTime('00:00:00');
-        foreach ($this->songs as $song) {
-            $d = $this->time_to_interval($song->getIntDuration());
-            $totalDuration->add($d);
-        }
-        return $totalDuration->format('H:i:s');
-
-//        $totalDuration = 0;
-//        foreach ($this->songs as $song) {
-//            $totalDuration += $song->getIntDuration();
-//        }
-//        $seconds = $totalDuration % 60;
-//        $minutes = floor($totalDuration / 60);
-//        $minutes = $minutes % 60;
-//        $hours = floor($minutes / 60);
-//        $hours = $hours % 60;
-//        if ($minutes < 10) {
-//            $minutes = '0' . $minutes;
-//        }
-//        if ($hours < 10) {
-//            $hours = '0' . $hours;
-//        }
-//        if ($seconds < 10) {
-//            $seconds = '0' . $seconds;
-//        }
-//        return $hours . ':' . $minutes . ':' . $seconds;
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function time_to_interval(string $time): DateInterval
-    {
-        $parts = explode(':',$time);
-        return new DateInterval('PT'.$parts[0].'H'.$parts[1].'M'.$parts[2].'S');
+        $this->songs = $songs;
     }
 }
 
-/**
- *
- */
 class Artist
 {
-
-    use TraitName;
-
-    /**
-     * @var Style[]
-     */
-    private array $styles;
-
-    /**
-     * @var string
-     */
+    use NameTrait;
     private string $nationality;
-
-    /**
-     * @var int
-     */
     private int $beginningYear;
+    private array $albums = [];
+    private array $styles = [];
 
-    /**
-     * Artist constructor.
-     *
-     * Un constructeur permet de définir un comportement à l'instanciation de l'objet
-     */
-    public function __construct()
+    public function __construct($name)
     {
-        $this->styles = [];
+        $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
-    public function getNationality(): string
+    public function addAlbum(Album $name): Artist
     {
-        return $this->nationality;
-    }
-
-    /**
-     * @param string $nationality
-     * @return Artist
-     */
-    public function setNationality(string $nationality): Artist
-    {
-        $this->nationality = $nationality;
-
+        $this->albums[] = $name;
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getBeginningYear(): int
+    public function addStyle(Style $name): Artist
     {
-        return $this->beginningYear;
-    }
-
-    /**
-     * @param int $beginningYear
-     * @return Artist
-     */
-    public function setBeginningYear(int $beginningYear): Artist
-    {
-        $this->beginningYear = $beginningYear;
-
+        $this->styles[] = $name;
         return $this;
     }
 
-    /**
-     * @return array|Style[]
-     */
-    public function getStyles(): array
-    {
-        return $this->styles;
-    }
-
-    /**
-     * @param Style $style
-     * @return $this
-     */
-    public function addStyle(Style $style): Artist
-    {
-        // Si le Style en paramètre n'existe pas dans le tableau
-        // Alors on l'ajoute
-        if (!in_array($style, $this->styles)) {
-            $this->styles[] = $style;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->name . ' - ' . $this->beginningYear . ' (' . $this->nationality . ')';
     }
 
+    public function getNationality(): string
+    {
+        return $this->nationality;
+    }
+
+    public function setNationality(string $nationality): void
+    {
+        $this->nationality = $nationality;
+    }
+
+    public function getBeginningYear(): int
+    {
+        return $this->beginningYear;
+    }
+
+    public function setBeginningYear(int $beginningYear): void
+    {
+        $this->beginningYear = $beginningYear;
+    }
+
+    public function getAlbums(): array
+    {
+        return $this->albums;
+    }
+
+    public function setAlbums(array $albums): void
+    {
+        $this->albums = $albums;
+    }
+
+    public function getStyles(): array
+    {
+        return $this->styles;
+    }
+
+    public function setStyle(string $style): void
+    {
+        $this->style = $style;
+    }
 }
 
-/**
- *
- */
 class Style
 {
-    use TraitName;
+    use NameTrait;
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->name;
     }
-
 }
 
 class User{
 
-    use TraitName;
-    private int $birthDate;
+    use NameTrait;
+    private datetime $birthDate;
     private int $age;
 
-    /**
-     * @return int
-     */
-    public function getBirthDate(): int
+    public function __construct($name)
     {
-        return $this->birthDate;
+        $this->name = $name;
     }
 
-    /**
-     * @param int $birthDate
-     */
-    public function setBirthDate(int $birthDate): void
+    public function setBirthDate(datetime $birthDate): void
     {
         $this->birthDate = $birthDate;
     }
 
-    /**
-     * @return int
-     */
     public function getAge(): int
     {
-        return $this->age;
+        $now = (int)(new DateTime())->format('Y');
+        return ($now - (int)($this->birthDate->format('Y')));
     }
-
-    /**
-     * @param int $age
-     */
-    public function setAge(int $age): void
-    {
-        $this->age = $age;
-    }
-
-}
-
-/**
- *
- */
-class Playlist
-{
-
-    /**
-     * Import le trait dans la classe, ainsi la classe bénéficie
-     * des attributs du trait
-     */
-    use TraitName;
-
-    /**
-     * @var DateTime
-     */
-    private DateTime $createdAt;
-
-    /**
-     * @var DateTime
-     */
-    private DateTime $updatedAt;
-
-    /**
-     * @var Song[]
-     */
-    private array $songs;
-
-    /**
-     * Playlist constructor.
-     */
-    public function __construct()
-    {
-        // PAr défaut new DateTime vous donne la date du jour
-        $this->createdAt = new DateTime();
-        $this->updatedAt = new DateTime();
-    }
-
-    /**
-     * @param string $name
-     * @return void
-     */
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-        $this->updatedAt = new DateTime();
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getCreatedAt(): DateTime
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getUpdatedAt(): DateTime
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @return Song[]
-     */
-    public function getSongs(): array
-    {
-        return $this->songs;
-    }
-
-    /**
-     * @param Song $song
-     */
-    public function addSong(Song $song): void
-    {
-        if (!in_array($song, $this->songs)) {
-            $this->songs[] = $song;
-            $this->updatedAt = new DateTime();
-        }
-    }
-
 }
 
 
-// Template --------------------------------
 
+
+///// Création des styles \\\\\
 $style1 = new Style();
 $style1->setName('Heavy metal');
 $style2 = new Style();
@@ -885,48 +618,69 @@ $style2->setName('Trash metal');
 $style3 = new Style();
 $style3->setName('Hard rock');
 
-echo $style1->getName();
+// ///// Création des artistes \\\\\
+// $artist = (new Artist())
+//     ->setBeginningYear(1981)
+//     ->setNationality('American')
+//     ->addStyle($style1)
+//     ->addStyle($style2)
+//     ->addStyle($style3)
+//     ->setName('Metallica');
 
-$song1 = new Song( 'Fight fire with fire');
-var_dump($song1->getArtists());
+$song = new Song('Fade to black');
+$song->setDuration('00:06:57');
+
+$song1 = new Song('Trapped under ice');
+$song1->setDuration('00:04:24');
+
+$song2 = new Song('	Hit the Lights');
+$song2->setDuration('00:04:17');
+
+$song3 = new Song('	The Four Horsemen');
+$song3->setDuration('00:07:13');
 
 
-/// Création des artistes \\\\\
-$artist = (new Artist());
-$artist->setBeginningYear(1981);
+
+$album = new Album('Ride the lightning');
+$album->addSong($song);
+$album->addSong($song1);
+$album->setDate(1984);
+$album->setPrice(139.90);
+$album->setDuration($album->getDuration());
+
+echo $album->getDuration();
+echo '<br />';
+
+$album1 = new Album('Kill\'em All');
+$album1->addSong($song2);
+$album1->addSong($song3);
+$album1->setDate(1983);
+$album1->setPrice(119.90);
+$album1->setDuration($album->getDuration());
+
+$artist = new Artist('Metallica');
+$artist->addAlbum($album);
+$artist->addAlbum($album1);
+$artist->addStyle($style1);
+$artist->addStyle($style2);
+$artist->addStyle($style3);
 $artist->setNationality('American');
-$artist->setName('Metallica');
-//$artist->addStyle($style1);
-//$artist->addStyle($style2);
-//$artist->addStyle($style3);
+$artist->setBeginningYear(1981);
+
+$user = new User('Julien');
+$date = (new DateTime())
+    ->setDate(1990, 1, 1);
+$user->setBirthDate($date);
+echo $user->getAge();
 
 
-//$song = new Song();
-//$song->setDuration('00:06:37');
-//
-//$song1 = new Song();
-//$song1->setDuration('00:04:45');
-//
-//$album = new Album();
-//$album->addSong($song);
-//$album->addSong($song1);
-//
-//echo $album->getAlbumDuration();
-//echo '<br>';
-//
-//$user = new User();
-//$date = (new DateTime())
-//    ->setDate(1990, 1, 1);
-//$user->setBirthDate($date);
-//echo $user->getAge();
-//
-//echo '<br>';
-//
-//echo $artist;
-//echo '<ul>';
-//foreach ($artist->getStyles() as $style) {
-//    echo '<li>';
-//    echo $style;
-//    echo '</li>';
-//}
-//echo '</ul>';
+// var_dump($artist);
+echo '<br>';
+echo ($artist);
+echo '<ul>';
+foreach ($artist->getStyles() as $style) {
+    echo '<li>';
+    echo $style;
+    echo '</li>';
+}
+echo '</ul>';
