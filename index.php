@@ -383,144 +383,231 @@
 trait NameTrait
 {
     protected string $name;
-    public function getName() : string {
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
         return $this->name;
     }
-    public function setName(string $name) :void {
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
         $this->name = $name;
     }
+
 
 }
 
 class Song
 {
     use NameTrait;
-    private string $duree;
-    private array $artistes = array();
+    private string $duration;
+    private array $artists = array();
 
-    //SET --------------------
-    public function setDuration(string $duree)
+    /**
+     * @return string
+     */
+    public function getDuration(): string
     {
-        $this->duree = $duree;
+        return $this->duration;
     }
 
-    public function setArtistes( array $artistes)
+    /**
+     * @param string $duration
+     */
+    public function setDuration(string $duration): void
     {
-        $this->artistes[] = $artistes;
-    }
-    //GET --------------------
-    public function getDuree() : string
-    {
-        return $this->duree;
+        $this->duration = $duration;
     }
 
-    public function getArtistes() : array
+    /**
+     * @return array
+     */
+    public function getArtists(): array
     {
-        return $this->artistes;
+        return $this->artists;
+    }
+
+    /**
+     * @param array $artists
+     */
+    public function setArtists(array $artists): void
+    {
+        $this->artists = $artists;
     }
 }
 
 class Album
 {
-    use NameTraint;
-    private int $dateSortie;
-    private float $duree;
-    private float $prixAlbum;
-    private array $chansons = [];
+    use NameTrait;
 
-    //SET --------------------
-    public function setDateSortie(Int $dateSortie) {
-        $this->dateSortie = $dateSortie;
-    }
-    public function setPrixAlbum(float $prixAlbum) {
-        $this->prixAlbum = $prixAlbum;
-    }
-    public function setChansons(string $chansons) {
-        $this->chansons[] = $chansons;
+    private int $date;
+    private string $duration;
+    private float $price;
+    private array $songs = array();
+
+    public function getDate(): int
+    {
+        return $this->date;
     }
 
-    //GET --------------------
-    public function getDateSortie() {
-        return $this->dateSortie;
+    public function setDate(int $date): void
+    {
+        $this->date = $date;
     }
-    public function getPrixAlbum() {
-        return $this->prixAlbum;
-    }
-    public function getChansons() {
-        return $this->chansons;
-    }
-    public function getAlbumDuration() {
 
+    public function getDuration(): string
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(string $duration): void
+    {
+        $this->duration = $duration;
+    }
+
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
+    }
+
+    public function getSongs(): array
+    {
+        return $this->songs;
+    }
+
+    public function setSongs(array $songs): void
+    {
+        $this->songs = $songs;
     }
 }
 
+
 class Artist
 {
-    use NameTraint;
+    use NameTrait;
     private string $nationality;
     private int $beginningYear;
     private array $albums = [];
     private string $style;
 
-    //SET --------------------
-    public function setNationality( string $nationality) {
-        $this->nationality = $nationality;
-    }
-    public function setBeginningYear ( int $beginningYear) {
-        $this->beginningYear = $beginningYear;
-    }
-    public function setAlbums( string $albums) {
-        $this->albums[] = $albums;
-    }
-    public function addStyle(string $style) {
-        $this->style = $style;
-    }
-
-    //GET --------------------
-    public function getNationality() {
+    /**
+     * @return string
+     */
+    public function getNationality(): string
+    {
         return $this->nationality;
     }
-    public function getBeginningYear() {
+
+    /**
+     * @param string $nationality
+     */
+    public function setNationality(string $nationality): void
+    {
+        $this->nationality = $nationality;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBeginningYear(): int
+    {
         return $this->beginningYear;
     }
-    public function getAlbums() {
+
+    /**
+     * @param int $beginningYear
+     */
+    public function setBeginningYear(int $beginningYear): void
+    {
+        $this->beginningYear = $beginningYear;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAlbums(): array
+    {
         return $this->albums;
     }
-    public function getStyle() {
+
+    /**
+     * @param array $albums
+     */
+    public function setAlbums(array $albums): void
+    {
+        $this->albums = $albums;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStyle(): string
+    {
         return $this->style;
+    }
+
+    /**
+     * @param string $style
+     */
+    public function setStyle(string $style): void
+    {
+        $this->style = $style;
     }
 
 }
 
 class Style
 {
- //INSERER LE TRAIT name
-    //SET --------------------
-
+    use NameTrait;
 }
 
 class User{
 
-    use NameTraint;
+    use NameTrait;
     private int $birthDate;
     private int $age;
 
-    //SET --------------------
-
-    public function setBirthDate(int $birthDate) {
-        $this->birthDate = $birthDate;
-    }
-    public function setAge(int $age) {
-        $this->age = $age;
-    }
-
-    //GET --------------------
-
-    public function getBirthDate() {
+    /**
+     * @return int
+     */
+    public function getBirthDate(): int
+    {
         return $this->birthDate;
     }
-    public function getAge() {
+
+    /**
+     * @param int $birthDate
+     */
+    public function setBirthDate(int $birthDate): void
+    {
+        $this->birthDate = $birthDate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAge(): int
+    {
         return $this->age;
+    }
+
+    /**
+     * @param int $age
+     */
+    public function setAge(int $age): void
+    {
+        $this->age = $age;
     }
 
 }
@@ -531,19 +618,85 @@ class Playlist{
     private DateTime $dateCreation;
     private DateTime $dateModification;
 
-    //SET --------------------
-    public function setDateCreation(Int $dateCreation) {
+    /**
+     * @return DateTime
+     */
+    public function getDateCreation(): DateTime
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * @param DateTime $dateCreation
+     */
+    public function setDateCreation(DateTime $dateCreation): void
+    {
         $this->dateCreation = $dateCreation;
     }
-    public function setDateModification(Int $dateModification) {
+
+    /**
+     * @return DateTime
+     */
+    public function getDateModification(): DateTime
+    {
+        return $this->dateModification;
+    }
+
+    /**
+     * @param DateTime $dateModification
+     */
+    public function setDateModification(DateTime $dateModification): void
+    {
         $this->dateModification = $dateModification;
     }
 
-    //GET --------------------
-    public function getDateCreation() {
-        return $this->dateCreation;
-    }
-    public function getDateModification() {
-        return $this->dateModification;
-    }
 }
+
+
+// Template --------------------------------
+
+//$style1 = new Style();
+//$style1->setName('Heavy metal');
+//$style2 = new Style();
+//$style2->setName('Trash metal');
+//$style3 = new Style();
+//$style3->setName('Hard rock');
+//
+/////// Création des artistes \\\\\
+//$artist = (new Artist())
+//    ->setBeginningYear(1981)
+//    ->setNationality('American')
+//    ->addStyle($style1)
+//    ->addStyle($style2)
+//    ->addStyle($style3)
+//    ->setName('Metallica');
+//
+//$song = new Song();
+//$song->setDuration('00:06:37');
+//
+//$song1 = new Song();
+//$song1->setDuration('00:04:45');
+//
+//$album = new Album();
+//$album->addSong($song);
+//$album->addSong($song1);
+//
+//echo $album->getAlbumDuration();
+//echo '<br>';
+//
+//$user = new User();
+//$date = (new DateTime())
+//    ->setDate(1990, 1, 1);
+//$user->setBirthDate($date);
+//echo $user->getAge();
+//
+//echo '<br>';
+//
+//echo $artist;
+//echo '<ul>';
+//foreach ($artist->getStyles() as $style) {
+//    echo '<li>';
+//    echo $style;
+//    echo '</li>';
+//}
+//echo '</ul>';
