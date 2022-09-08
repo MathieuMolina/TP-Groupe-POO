@@ -399,23 +399,52 @@ class Song
 {
     use NameTrait;
     private string $duration;
-    // private array $artists = array();
+    private array $artists;
 
     public function __construct(string $name)
     {
         $this->name = $name;
+        $this->duration = "0";
+        $this->artists = [];
+
     }
 
+    /**
+     * @return string
+     */
     public function getDuration(): string
     {
         return $this->duration;
     }
 
+    /**
+     * @param string $duration
+     */
     public function setDuration(string $duration): void
     {
         $this->duration = $duration;
     }
 
+    /**
+     * @return array
+     */
+    public function getArtists(): array
+    {
+        return $this->artists;
+    }
+
+    /**
+     * @param array $artists
+     */
+    public function setArtists(array $artists): void
+    {
+        $this->artists = $artists;
+    }
+
+    public function addArtist(Artist $artists) : void
+    {
+        $this->artists[] = $artists;
+    }
 
 }
 
@@ -647,14 +676,22 @@ $style3->setName('Hard rock');
 
 echo $style1->getName();
 
+
+$song1 = new Song( 'Fight fire with fire');
+
 /// Création des artistes \\\\\
 $artist = (new Artist());
 $artist->setBeginningYear(1981);
 $artist->setNationality('American');
-$artist->addStyle($style1);
-$artist->addStyle($style2);
-$artist->addStyle($style3);
-$artist->setName('Metallica');
+
+$artist2 = (new Artist());
+$artist2->setBeginningYear(1992);
+$artist2->setNationality('Japonais');
+$artist->setName('Milka');
+
+$song1->addArtist($artist);
+
+var_dump($song1->getArtists());
 
 //$song = new Song();
 //$song->setDuration('00:06:37');
