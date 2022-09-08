@@ -384,62 +384,39 @@ trait NameTrait
 {
     protected string $name;
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
-
-
 }
 
 class Song
 {
     use NameTrait;
     private string $duration;
-    private array $artists = array();
+    // private array $artists = array();
 
-    /**
-     * @return string
-     */
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
     public function getDuration(): string
     {
         return $this->duration;
     }
 
-    /**
-     * @param string $duration
-     */
     public function setDuration(string $duration): void
     {
         $this->duration = $duration;
     }
 
-    /**
-     * @return array
-     */
-    public function getArtists(): array
-    {
-        return $this->artists;
-    }
 
-    /**
-     * @param array $artists
-     */
-    public function setArtists(array $artists): void
-    {
-        $this->artists = $artists;
-    }
 }
 
 class Album
@@ -450,6 +427,12 @@ class Album
     private string $duration;
     private float $price;
     private array $songs = array();
+
+    public function addSong(Song $name) : Album
+    {
+        $this->songs[] = $name;
+        return $this;
+    }
 
     public function getDate(): int
     {
@@ -492,14 +475,13 @@ class Album
     }
 }
 
-
 class Artist
 {
     use NameTrait;
     private string $nationality;
     private int $beginningYear;
     private array $albums = [];
-    private string $style;
+    private array $style = [];
 
     /**
      * @return string
@@ -552,7 +534,7 @@ class Artist
     /**
      * @return string
      */
-    public function getStyle(): string
+    public function getStyle(): array
     {
         return $this->style;
     }
@@ -560,10 +542,11 @@ class Artist
     /**
      * @param string $style
      */
-    public function setStyle(string $style): void
+    public function setStyle(string $style): array
     {
-        $this->style = $style;
+        return $this->style = $style;
     }
+
 
 }
 
@@ -614,7 +597,7 @@ class User{
 
 class Playlist{
 
-    use NameTraint;
+    use NameTrait;
     private DateTime $dateCreation;
     private DateTime $dateModification;
 
@@ -655,22 +638,24 @@ class Playlist{
 
 // Template --------------------------------
 
-//$style1 = new Style();
-//$style1->setName('Heavy metal');
-//$style2 = new Style();
-//$style2->setName('Trash metal');
-//$style3 = new Style();
-//$style3->setName('Hard rock');
-//
-/////// Création des artistes \\\\\
-//$artist = (new Artist())
-//    ->setBeginningYear(1981)
-//    ->setNationality('American')
-//    ->addStyle($style1)
-//    ->addStyle($style2)
-//    ->addStyle($style3)
-//    ->setName('Metallica');
-//
+$style1 = new Style();
+$style1->setName('Heavy metal');
+$style2 = new Style();
+$style2->setName('Trash metal');
+$style3 = new Style();
+$style3->setName('Hard rock');
+
+echo $style1->getName();
+
+/// Création des artistes \\\\\
+$artist = (new Artist());
+$artist->setBeginningYear(1981);
+$artist->setNationality('American');
+$artist->addStyle($style1);
+$artist->addStyle($style2);
+$artist->addStyle($style3);
+$artist->setName('Metallica');
+
 //$song = new Song();
 //$song->setDuration('00:06:37');
 //
