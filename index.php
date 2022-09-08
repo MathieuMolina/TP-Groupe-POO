@@ -683,11 +683,10 @@ $song1 = new Song( 'Fight fire with fire');
 $artist = (new Artist());
 $artist->setBeginningYear(1981);
 $artist->setNationality('American');
-
-$artist2 = (new Artist());
-$artist2->setBeginningYear(1992);
-$artist2->setNationality('Japonais');
-$artist->setName('Milka');
+//$artist->addStyle($style1);
+//$artist->addStyle($style2);
+//$artist->addStyle($style3);
+$artist->setName('Metallica');
 
 $song1->addArtist($artist);
 
