@@ -378,7 +378,9 @@
 
 
 //EXO SPOTIFY ------------------------------------------------------------------------------------------------
-trait NameTraint
+
+
+trait NameTrait
 {
     protected string $name;
     public function getName() : string {
@@ -392,54 +394,39 @@ trait NameTraint
 
 class Song
 {
-    use NameTraint;
+    use NameTrait;
     private string $duree;
-    private float $prix;
-    private array $artistes = [];
+    private array $artistes = array();
 
     //SET --------------------
-    public function setDuration(float $duree)
+    public function setDuration(string $duree)
     {
         $this->duree = $duree;
     }
-    public function setPrix(float $prix)
-    {
-        $this->prix = $prix;
-    }
-    public function setArtistes( string $artistes)
+
+    public function setArtistes( array $artistes)
     {
         $this->artistes[] = $artistes;
     }
-
     //GET --------------------
-
-    public function getDuree() {
+    public function getDuree() : string
+    {
         return $this->duree;
     }
-    public function getPrix() {
-        return $this->prix;
-    }
-    public function getArtistes() {
+
+    public function getArtistes() : array
+    {
         return $this->artistes;
     }
 }
 
-class Albums
+class Album
 {
     use NameTraint;
     private int $dateSortie;
     private float $duree;
     private float $prixAlbum;
     private array $chansons = [];
-
-
-//    public function __construct( string $nomAlbum, int $dateSortie, float $duree, float $prixAlbum, array $chansons){
-//        $this->nomAlbum = $nomAlbum;
-//        $this->dateSortie = $dateSortie;
-//
-//        $this->prixAlbum = $prixAlbum;
-//        $this->chansons[] = $chansons;
-//    }
 
     //SET --------------------
     public function setDateSortie(Int $dateSortie) {
@@ -474,15 +461,6 @@ class Artist
     private int $beginningYear;
     private array $albums = [];
     private string $style;
-
-//    public function __construct(string $name, string $nationality, int  $beginningYear, string $albums, string $style)
-//    {
-//
-//        $this->nationality = $nationality;
-//        $this->beginningYear = $beginningYear;
-//        $this->albums[] = $albums;
-//        $this->style = $style;
-//    }
 
     //SET --------------------
     public function setNationality( string $nationality) {
@@ -527,12 +505,6 @@ class User{
     private int $birthDate;
     private int $age;
 
-//    public function __construct(string $username, int $birthDate, int $age){
-//        $this->username = $username;
-//        $this->birthDate = $birthDate;
-//        $this->age = $age;
-//    }
-
     //SET --------------------
 
     public function setBirthDate(int $birthDate) {
@@ -558,13 +530,6 @@ class Playlist{
     use NameTraint;
     private DateTime $dateCreation;
     private DateTime $dateModification;
-
-//    public function __construct(string $nomPlaylist, Int $dateCreation, Int $dateModification){
-//
-//        $this->nomPlaylist = $nomPlaylist;
-//        $this->dateCreation = $dateCreation;
-//        $this->dateModification = $dateModification;
-//    }
 
     //SET --------------------
     public function setDateCreation(Int $dateCreation) {
